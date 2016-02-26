@@ -1,9 +1,16 @@
-// This program displays a phase portrait for a 2-variable linear homogeneous system.
+// This program displays a phase portrait for a first order 2-variable system.
 // Click to start an integration path
 
 /* Begin Configuration: */
-// Linear system:  x' = Ax
-final float[][] A = {{1,-2},{2,1}};
+// system:  
+// x' = f(x,y)
+// y' = g(x,y)
+float f(float x, float y){
+  return -3*y;
+}
+float g(float x, float y){
+  return sin(3*x);
+}
 // axis limits:
 final float xscale = 3;
 final float yscale = 3;
@@ -25,12 +32,6 @@ void coord2win(float[] input){
   input[1] = -input[1] * height/2 / yscale + height/2;
 }
 
-// multiply matrix 2x2 A into vector 2x1 x, store in 2x1 b:
-void matMul(float[][] A, float[] x, float[] b){
-  b[0] = A[0][0] * x[0] + A[0][1] * x[1];
-  b[1] = A[1][0] * x[0] + A[1][1] * x[1];
-}
-
 // returns a string representation of input, rounded to 2 decimal places, with leading +/-
 String format(float f){
   return (f >= 0? "+" : "-") + abs(int(f)) + "." + int(100*abs(f%1));
@@ -44,6 +45,23 @@ void setup(){
   line(width/2,0,width/2,height);
   line(0,height/2,width,height/2);
   cursor(CROSS);
+  stroke(200);
+  fill(200);
+  for(int i = 0; i < width; i += 15){
+    for(int j = 0; j < height; j+=15){
+      float[] coord = new float[]{i,j};
+      win2coord(coord);
+      float dx = f(coord[0],coord[1]);
+      float dy = -1*g(coord[0],coord[1]);
+      PVector p = new PVector(dx,dy);
+      p.normalize();
+      p.mult(-8);
+      ellipse(i,j,2,2);
+      line(i,j,i+p.x,j+p.y);
+    }    
+  }
+  stroke(0);
+  fill(0);
 }
 
 void draw(){
@@ -56,15 +74,6 @@ void draw(){
   win2coord(p);
   fill(0);
   text("(" + format(p[0]) + "," + format(p[1]) + ")",5,15);
-  //display linear system in upper right corner:
-  fill(255);
-  rect(width-100,0,100,35);
-  fill(0);
-  text("A=",width-90,20);
-  text(format(A[0][0]),width-70,15);
-  text(format(A[0][1]),width-35,15);
-  text(format(A[1][0]),width-70,30);
-  text(format(A[1][1]),width-35,30);
 }
 
 void mousePressed(){
@@ -75,7 +84,8 @@ void mousePressed(){
   // abort after 1000 iterations, or if outside the window
   for(int i = 0; i < max_iter; i++){
     float[] dx = new float[2];
-    matMul(A,x,dx);
+    dx[0] = f(x[0], x[1]);
+    dx[1] = g(x[0], x[1]);
     dx[0] = dx[0] / 75;
     dx[1] = dx[1] / 75;
     x[0] = x[0] + dx[0];
