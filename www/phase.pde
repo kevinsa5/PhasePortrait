@@ -166,18 +166,25 @@ void redraw(){
 void setup() {
   size(500, 500);
   cursor(CROSS);
-  redraw();
+  frameRate(5);
 }
 
 void draw() {
   if(update){
     update = false;
     redraw();
+    x_waveform = [];
+    y_waveform = [];
+    r_waveform = [];
+    theta_waveform = [];
+    updateWaveforms = true;
   }
   if(saveImage){
     saveImage = false;
     saveFrame();
   }
+}
+void mouseMoved(){
   // display mouse coordinates in upper left corner:
   stroke(0);
   fill(255);

@@ -54,7 +54,7 @@ function getProcessingSketchId () { return 'phase'; }
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/2.7.0/math.min.js"></script>
 	<script type="application/javascript">
-		var update = false;
+		var update = true;
 		var saveImage = false;
 		var x_waveform = [];
 		var y_waveform = [];
@@ -80,10 +80,9 @@ function getProcessingSketchId () { return 'phase'; }
 	<body>
 		<a href="/">Home</a>
 		<div id="content">
-			<h1>Phase Plane Plotter</h1>
-
 			<div>
 			<table cellpadding="20"><tr><td>
+				<h1>Phase Plane Plotter</h1>
 				<select id="coordinateSelect" onchange="coordinateChange();">
 					<option value="Cartesian">Cartesian</option>
 					<option value="Polar">Polar</option>
@@ -98,7 +97,7 @@ function getProcessingSketchId () { return 'phase'; }
 				</div>					
 				<p>x between &plusmn;<input id="xlim" size="2" type="text" value="5"/></p>
 				<p>y between &plusmn;<input id="ylim" size="2" type="text" value="5"/></p>
-				<p>max number of iterations: <input id="max_iter", size=5", type="text", value="1e4"/></p>
+				<p>max number of iterations: <input id="max_iter", size=5", type="text", value="2e4"/></p>
 				<p>step size: <input id="step_size", size="5", type="text", value="1e-3"/></p>
 				<p>nullcline tolerance: <input id="null_tol", size="5", type="text", value="1e-2"/></p>
                                 <p><label><input type="checkbox" id="drawNullclines">Draw nullclines?</label></p>
@@ -106,6 +105,16 @@ function getProcessingSketchId () { return 'phase'; }
                                 <p><label><input type="checkbox" id="rainbow">Rainbow?</label></p>
 
 				<p><button id="updateButton" onclick="update=true;">Update Plot</button></p>
+				<hr size="4">
+
+				<p><button id="saveButton" onclick="saveImage=true;">View PNG</button> (It opens in a new tab, so you may need to allow popups)</p>
+	    			<p id="description"></p>
+				<p id="sources">Source code: <a href="phase.pde">phase</a> </p>
+				<p>
+				Built with <a href="http://processing.org" title="Processing">Processing</a>
+				and <a href="http://processingjs.org" title="Processing.js">Processing.js</a>
+				</p>
+
 			</td><td>	
 				<canvas id="phase" data-processing-sources="phase.pde" 
 						width="500" height="500">
@@ -123,14 +132,7 @@ function getProcessingSketchId () { return 'phase'; }
 
 			</td></tr></table>
 	    	</div>
-		<p><button id="saveButton" onclick="saveImage=true;">View PNG</button> (It opens in a new tab, so you may need to allow popups)</p>
 
-    		<p id="description"></p>
-			<p id="sources">Source code: <a href="phase.pde">phase</a> </p>
-			<p>
-			Built with <a href="http://processing.org" title="Processing">Processing</a>
-			and <a href="http://processingjs.org" title="Processing.js">Processing.js</a>
-			</p>
 		</div>
 	</body>
 </html>

@@ -2,6 +2,7 @@ PlotArea plotOne, plotTwo;
 
 void setup(){
   size(500,300);
+  frameRate(5);
 }
 
 void draw(){
