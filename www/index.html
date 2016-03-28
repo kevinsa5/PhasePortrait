@@ -53,7 +53,15 @@ function getProcessingSketchId () { return 'phase'; }
 </script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/2.7.0/math.min.js"></script>
-	<script type="application/javascript">var update=false;var saveImage=false;</script>
+	<script type="application/javascript">
+		var update = false;
+		var saveImage = false;
+		var x_waveform = [];
+		var y_waveform = [];
+		var r_waveform = [];
+		var theta_waveform = [];
+		var updateWaveforms = false;
+	</script>
 	<script type="text/javascript">
 		function coordinateChange(){
 			var cart = document.getElementById("cartesian");
@@ -70,7 +78,7 @@ function getProcessingSketchId () { return 'phase'; }
 
 	</head>
 	<body>
-
+		<a href="/">Home</a>
 		<div id="content">
 			<h1>Phase Plane Plotter</h1>
 
@@ -100,13 +108,19 @@ function getProcessingSketchId () { return 'phase'; }
 				<p><button id="updateButton" onclick="update=true;">Update Plot</button></p>
 			</td><td>	
 				<canvas id="phase" data-processing-sources="phase.pde" 
-						width="400" height="400">
+						width="500" height="500">
 					<p>Your browser does not support the canvas tag.</p>
-					<!-- Note: you can put any alternative content here. -->
 				</canvas>
 				<noscript>
 					<p>JavaScript is required to view the contents of this page.</p>
 				</noscript>
+				<canvas id="waveforms" data-processing-sources="waveform.pde" width="500" height="300">
+					<p>Your browser does not support the canvas tag.</p>
+				</canvas>
+				<noscript>
+                                        <p>JavaScript is required to view the contents of this page.</p>
+                                </noscript>
+
 			</td></tr></table>
 	    	</div>
 		<p><button id="saveButton" onclick="saveImage=true;">View PNG</button> (It opens in a new tab, so you may need to allow popups)</p>

@@ -201,12 +201,18 @@ void mousePressed() {
     fill(0);
   }
   if(getCoordinateSystem() == "Cartesian"){
+    // global variables for waveform plot:
+    x_waveform = new float[max_iter];
+    y_waveform = new float[max_iter];
+
     float[] x = new float[2];
     x[0] = mouseX;
     x[1] = mouseY;
     win2coord(x);
     // abort after 1000 iterations, or if outside the window
     for (int i = 0; i < max_iter; i++) {
+      x_waveform[i] = x[0];
+      y_waveform[i] = x[1];
       float[] dx = new float[2];
       dx[0] = f(x[0], x[1]);
       dx[1] = g(x[0], x[1]);
@@ -226,6 +232,10 @@ void mousePressed() {
       point(p[0], p[1]);
     }
   } else if(getCoordinateSystem() == "Polar"){
+    // global variables for waveform plots:
+    r_waveform = new float[max_iter];
+    theta_waveform = new float[max_iter];
+
     float[] x = new float[2];
     x[0] = mouseX;
     x[1] = mouseY;
@@ -233,6 +243,8 @@ void mousePressed() {
     cart2pol(x);
     // abort after 1000 iterations, or if outside the window
     for (int i = 0; i < max_iter; i++) {
+      r_waveform[i] = x[0];
+      theta_waveform[i] = x[1];
       float[] dx = new float[2];
       dx[0] = f(x[0], x[1]);
       dx[1] = g(x[0], x[1]);
@@ -253,4 +265,6 @@ void mousePressed() {
       point(p[0], p[1]);
     }
   }
+  // global variable
+  updateWaveforms = true;
 }
