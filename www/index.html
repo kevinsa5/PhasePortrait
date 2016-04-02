@@ -104,12 +104,12 @@ function getProcessingSketchId () { return 'phase'; }
                                 <p><label><input type="checkbox" id="trajectoriesOutside" checked=true>Allow trajectories to leave the window?</label></p>
                                 <p><label><input type="checkbox" id="rainbow">Rainbow?</label></p>
 
-				<p><button id="updateButton" onclick="update=true;">Update Plot</button></p>
+				<p><button id="updateButton" onclick="update=true;">Update Plot</button> <span id="errorMessage" style="color: white; font-size: 14pt"></span></p>
 				<hr size="4">
 
 				<p><button id="saveButton" onclick="saveImage=true;">View PNG</button> (It opens in a new tab, so you may need to allow popups)</p>
 	    			<p id="description"></p>
-				<p id="sources">Source code: <a href="phase.pde">phase</a> </p>
+				<p id="sources">Source code: <a href="phase.pde">phase</a> and <a href="waveform.pde">waveform</a></p>
 				<p>
 				Built with <a href="http://processing.org" title="Processing">Processing</a>
 				and <a href="http://processingjs.org" title="Processing.js">Processing.js</a>

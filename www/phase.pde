@@ -47,13 +47,27 @@ int max_iter;
 float step_size;
 float null_tol;
 void updateParameters(){
+  document.getElementById('errorMessage').innerHTML = "";
   if(getCoordinateSystem() == "Cartesian"){
-    f = math.eval("f(x,y) = " + document.getElementById('xdot').value);
-    g = math.eval("g(x,y) = " + document.getElementById('ydot').value);
+    try {
+      f = math.eval("f(x,y) = " + document.getElementById('xdot').value);
+      g = math.eval("g(x,y) = " + document.getElementById('ydot').value);
+    } catch(e) {
+      f = math.eval("f(x,y) = 0");
+      g = math.eval("g(x,y) = 0");
+      document.getElementById('errorMessage').innerHTML = e;
+    }
   } else if(getCoordinateSystem() == "Polar"){
-    f = math.eval("f(r,theta) = " + document.getElementById('rdot').value);
-    g = math.eval("g(r,theta) = " + document.getElementById('thetadot').value);
+    try {
+      f = math.eval("f(r,theta) = " + document.getElementById('rdot').value);
+      g = math.eval("g(r,theta) = " + document.getElementById('thetadot').value);
+    } catch(e) {
+      f = math.eval("f(r,theta) = 0");
+      g = math.eval("g(r,theta) = 0");
+      document.getElementById('errorMessage').innerHTML = e;
+    }
   }
+  console.log("here");
   xscale = math.eval("abs("+document.getElementById('xlim').value+")");
   yscale = math.eval("abs("+document.getElementById('ylim').value+")");
   max_iter = math.eval(document.getElementById('max_iter').value);
@@ -156,10 +170,14 @@ void drawAxisLines(){
 void redraw(){
   background(255);
   updateParameters();
-  drawVectorField();
-  if(document.getElementById('drawNullclines').checked){
-    drawNullclines();
-  }
+  try {
+    drawVectorField();
+    if(document.getElementById('drawNullclines').checked){
+      drawNullclines();
+    }
+  } catch(e) {
+    document.getElementById('errorMessage').innerHTML = e;
+  } 
   drawAxisLines();
 }
 
@@ -197,6 +215,14 @@ void mouseMoved(){
   text("(" + format(p[0]) + "," + format(p[1]) + ")", 5, 15);
 }
 void mousePressed() {
+  try {
+    drawTrajectory();
+  } catch(e) {
+    document.getElementById('errorMessage').innerHTML = e;
+  }
+}
+
+void drawTrajectory(){
   boolean canGoOutside = document.getElementById('trajectoriesOutside').checked;
   boolean rainbow = document.getElementById('rainbow').checked;
   if(rainbow){
