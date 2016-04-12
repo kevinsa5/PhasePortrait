@@ -46,7 +46,7 @@
 		<!--[if lt IE 9]>
 			<script type="text/javascript">alert("Your browser does not support the canvas tag.");</script>
 		<![endif]-->
-		<script src="/scripts/processing.js" type="text/javascript"></script>
+		<script src="/global/processing.js" type="text/javascript"></script>
 		<script type="text/javascript">
 // convenience function to get the id attribute of generated sketch html element
 function getProcessingSketchId () { return 'phase'; }
@@ -109,7 +109,7 @@ function getProcessingSketchId () { return 'phase'; }
 
 				<p><button id="saveButton" onclick="saveImage=true;">View PNG</button> (It opens in a new tab, so you may need to allow popups)</p>
 	    			<p id="description"></p>
-				<p id="sources">Source code: <a href="phase.pde">phase</a> and <a href="waveform.pde">waveform</a></p>
+				<p id="sources">Source code: <a href="phase.pde">phase</a>, <a href="waveform.pde">waveform</a>, and <a href="/global/plotarea.pde">plotarea</a></p>
 				<p>
 				Built with <a href="http://processing.org" title="Processing">Processing</a>
 				and <a href="http://processingjs.org" title="Processing.js">Processing.js</a>
@@ -123,7 +123,7 @@ function getProcessingSketchId () { return 'phase'; }
 				<noscript>
 					<p>JavaScript is required to view the contents of this page.</p>
 				</noscript>
-				<canvas id="waveforms" data-processing-sources="waveform.pde" width="500" height="300">
+				<canvas id="waveforms" data-processing-sources="/global/plotarea.pde waveform.pde" width="500" height="300">
 					<p>Your browser does not support the canvas tag.</p>
 				</canvas>
 				<noscript>
